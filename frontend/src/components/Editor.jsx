@@ -1,7 +1,10 @@
 
 
+
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation,useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
 import pythonIcon from '../assets/icons/python.svg';
 import javascriptIcon from '../assets/icons/javascript.svg';
 import javaIcon from '../assets/icons/java.svg';
@@ -19,9 +22,10 @@ import './editor.css';
 const Editor = () => {
   const iframeRef = useRef();
   const { state } = useLocation();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const { question, language } = state || {};
   const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!iframeLoaded || !iframeRef.current?.contentWindow || !question) return;
@@ -37,9 +41,10 @@ const Editor = () => {
     };
 
     sendMessage();
+    setIsLoading(false);
   }, [iframeLoaded, question, language]);
 
-    useEffect(() => {
+  useEffect(() => {
     const handleMessage = (event) => {
       if (!event.origin.includes("localhost")) return;
 
@@ -71,28 +76,100 @@ const Editor = () => {
   };
 
   return (
-    <div className="editor-container">
-      <div className="editor-glass-panel">
-        <div className="editor-header">
+    <motion.div
+      className="editor-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <motion.div
+        className="editor-glass-panel"
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+      >
+        <motion.div
+          className="editor-header"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           <div className="header-content">
-            <div className="question-display">
-              <div className="question-meta">
-                <span className="language-badge">
+            <motion.div
+              className="question-display"
+              initial={{ x: -20 }}
+              animate={{ x: 0 }}
+              transition={{ type: "spring", stiffness: 100 }}
+            >
+              <motion.div
+                className="question-meta"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <motion.span
+                  className="language-badge"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                   <img 
                     src={languageIcons[language?.toLowerCase()] || allIcon} 
                     alt={language} 
                     className="language-icon"
                   />
                   <span className="language-name">{language || 'All Languages'}</span>
-                </span>
-                <span className="question-label">PROBLEM STATEMENT</span>
-              </div>
-              <h1 className="question-text">{question}</h1>
-            </div>
+                </motion.span>
+                <motion.span
+                  className="question-label"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  PROBLEM STATEMENT
+                </motion.span>
+              </motion.div>
+              <motion.h1
+                className="question-text"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                {question}
+              </motion.h1>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="editor-wrapper">
+        <motion.div
+          className="editor-wrapper"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
+          <AnimatePresence>
+            {isLoading && (
+              <motion.div
+                className="loading-overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  className="loading-spinner"
+                />
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ repeat: Infinity, repeatType: "reverse", duration: 1 }}
+                >
+                  Loading editor...
+                </motion.p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <iframe
             ref={iframeRef}
             src="http://localhost:5173"
@@ -100,9 +177,9 @@ const Editor = () => {
             title="Code Editor"
             className="editor-iframe"
           />
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 };
 

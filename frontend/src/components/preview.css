@@ -65,7 +65,7 @@ body {
 }
 
 .details-card {
-  background: var(--card-bg);
+  background: rgb(214, 235, 241);
   padding: 1.5rem;
   border-radius: 12px;
   margin-bottom: 2rem;

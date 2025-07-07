@@ -1,101 +1,91 @@
 .exam-container {
   max-width: 800px;
-  margin: 2rem auto;
-  padding: 3rem;
-  background-color: #f0f4f8;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  animation: fadeIn 0.5s ease-in-out;
+  margin: 3rem auto;
+  padding: 3rem 4rem;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 24px;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-/* Input */
+.exam-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #1e1b4b;
+  text-align: center;
+  background: linear-gradient(90deg, #6366f1, #4f46e5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.input-container {
+  margin-bottom: 2rem;
+}
+
 .input-box {
   width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 1.5rem;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
+  padding: 1.25rem 1.5rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.input-box:focus {
-  border-color: #007bff;
-  background-color: #fff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-}
-
-/* Select + Button Flex */
 .select-action-row {
   display: flex;
+  gap: 1.5rem;
   align-items: center;
-  gap: 1rem;
 }
 
-/* Select */
 .select-box {
   flex: 1;
-  padding: 14px 16px;
+  padding: 1.1rem 1.5rem;
   font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  appearance: none;
-  transition: all 0.3s ease;
-}
-
-/* Option Styling (limited support across browsers) */
-.select-box option {
-  padding: 12px;
-  font-size: 1rem;
-}
-
-/* Button */
-.create-button {
-  padding: 14px 24px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  background-color: #007bff;
-  color: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-  transition: background-color 0.3s ease;
+}
+
+.create-button {
+  padding: 1.1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.25);
   white-space: nowrap;
 }
 
-.create-button:hover {
-  background-color: #0056b3;
+.error-text {
+  color: #ef4444;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  padding-left: 1rem;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+@media (max-width: 768px) {
+  .exam-container {
+    padding: 2rem;
+    margin: 1.5rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive */
-@media (max-width: 600px) {
+  
   .select-action-row {
     flex-direction: column;
-    align-items: stretch;
   }
-
+  
   .create-button {
     width: 100%;
-    text-align: center;
   }
-}
-.error-text {
-  color: #e53935;
-  font-size: 0.95rem;
-  margin-top: -1rem;
-  margin-bottom: 1rem;
-  padding-left: 4px;
-  animation: fadeIn 0.2s ease-in-out;
 }

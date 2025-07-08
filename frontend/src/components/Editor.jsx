@@ -2,9 +2,8 @@
 
 
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate,useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
 import pythonIcon from '../assets/icons/python.svg';
 import javascriptIcon from '../assets/icons/javascript.svg';
 import javaIcon from '../assets/icons/java.svg';
@@ -21,11 +20,14 @@ import './editor.css';
 
 const Editor = () => {
   const iframeRef = useRef();
-  const { state } = useLocation();
   const navigate = useNavigate();
-  const { question, language } = state || {};
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+    const [searchParams] = useSearchParams();
+  const language = searchParams.get("language");
+  const question = searchParams.get("question");
+
+    console.log(import.meta.env.VITE_BACKEND_URL)
 
   useEffect(() => {
     if (!iframeLoaded || !iframeRef.current?.contentWindow || !question) return;
@@ -36,7 +38,7 @@ const Editor = () => {
           type: "INIT",
           payload: { question, language }
         },
-        "http://localhost:5173"
+        import.meta.env.VITE_CHILD_APP 
       );
     };
 
@@ -46,7 +48,10 @@ const Editor = () => {
 
   useEffect(() => {
     const handleMessage = (event) => {
-      if (!event.origin.includes("localhost")) return;
+          const expectedOrigin = import.meta.env.VITE_CHILD_APP;
+          console.log(expectedOrigin)
+
+    if (event.origin !== expectedOrigin) return;
 
       if (event.data?.type === "SUBMIT") {
         const { submissionId } = event.data.payload || {};
@@ -172,7 +177,7 @@ const Editor = () => {
 
           <iframe
             ref={iframeRef}
-            src="http://localhost:5173"
+            src={import.meta.env.VITE_CHILD_APP}
             onLoad={() => setIframeLoaded(true)}
             title="Code Editor"
             className="editor-iframe"

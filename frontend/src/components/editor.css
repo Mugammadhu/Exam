@@ -188,3 +188,83 @@
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(99, 102, 241, 0.2);
 }
+/* Very Small Devices (Phones ≤ 480px) */
+@media (max-width: 480px) {
+  .editor-container {
+    padding: 0.5rem;
+  }
+
+  .editor-header {
+    padding: 1rem;
+  }
+
+  .question-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .language-badge {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .language-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .question-text {
+    font-size: 1.2rem;
+    white-space: normal;
+  }
+}
+
+/* Tablets (481px – 768px) — Some already exist */
+@media (max-width: 768px) {
+  .editor-container {
+    padding: 0.75rem;
+  }
+
+  .editor-header {
+    padding: 1.25rem;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .question-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .question-text {
+    font-size: 1.3rem;
+    white-space: normal;
+  }
+}
+
+/* Laptops (769px – 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .editor-header {
+    padding: 1.75rem 2rem;
+  }
+
+  .question-text {
+    font-size: 1.45rem;
+  }
+}
+
+/* Large Screens (Desktops ≥ 1025px) */
+@media (min-width: 1025px) {
+  .editor-container {
+    padding: 2rem;
+  }
+
+  .question-text {
+    font-size: 1.6rem;
+  }
+}

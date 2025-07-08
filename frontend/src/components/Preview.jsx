@@ -15,7 +15,7 @@ const Preview = () => {
   useEffect(() => {
     const fetchSubmission = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/${submissionId}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/submissions/${submissionId}`);
         setSubmission(response.data);
         setLoading(false);
       } catch (err) {

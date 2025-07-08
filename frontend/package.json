@@ -10,9 +10,10 @@
     "preview": "vite preview"
   },
   "resolutions": {
-  "rollup": "2.79.1"
-},
+    "rollup": "2.79.1"
+  },
   "dependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.44.2",
     "axios": "^1.10.0",
     "framer-motion": "^12.23.0",
     "react": "^19.1.0",
